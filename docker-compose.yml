@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  app:
+    image: 'demo-rest-api:latest'
+    container_name: api
+    depends_on:
+      - postgres
+    ports:
+      - 8090:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://java-postgres:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+
+  postgres:
+    image: 'postgres:13'
+    container_name: 'java-postgres'
+    ports:
+      - 5432:5432
+    environment:
+      - 'POSTGRES_USER=sa'
+      - 'POSTGRES_HOST_AUTH_METHOD=trust'
+      - 'POSTGRES_DB=java'
